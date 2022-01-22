@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    --warning: #f8d709;
+    --primary: #1261d6;
+    --dark: #333333;
+    --dark-hov: #444444;
+    --light: #ddd;
+    --dull-light: #ccc;
+    --strong-warning: #8a7c01;
+    --intense-dark: #222222;
+}
+.navbar-light{
+    background-color: var(--light);
+    color: var(--intense-dark);
+}
+/* button dark we will take from note.css */
+.line-light{
+    border-top: 1px solid rgba(0, 0, 0, 1);
+}
+.hamburger-light{
+    border: 1px solid var(--intense-dark);
+}
+.burgerslice-light{
+    border-top: 1px solid var(--intense-dark);
+}
+.drop-cont-light{
+    background-color: var(--light);
+}
+.drop-cont-light a{
+    color: var(--intense-dark);
+}
+.drop-cont-light a:hover{
+    background-color: var(--dull-light);
+}
