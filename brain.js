@@ -1,15 +1,23 @@
+// ====================== for manage styles ==============================//
+
 let ham = document.querySelector('.hamburger');
 let lis = document.querySelectorAll('.list-item');
 let btn = document.querySelector('.btn');
-window.addEventListener('resize',()=>{
-    if(window.innerWidth >= 992){
-        lis.forEach((e)=>{e.style.display = 'block'});
+// console.log(window.getComputedStyle(btn));
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 992) {
+        lis.forEach((e) => { e.style.display = 'block' });
         document.querySelector('.searchpack').style.display = 'block';
     }
-    else{
-        lis.forEach((e)=>{e.style.display = 'none'});
+    else {
+        lis.forEach((e) => { e.style.display = 'none' });
         document.querySelector('.searchpack').style.display = 'none';
     }
+    let x = window.matchMedia("(min-width:992px)");
+    // let x1 = window.matchMedia("(min-width:)");
+    console.log(x);
+    widthCheck(x); // invoking runtime
+    x.addListener(widthCheck); //set function on state change
 })
 
 document.querySelector('.navbar').addEventListener('resize', () => {
@@ -34,8 +42,48 @@ ham.addEventListener('click', function () {
         }
     });
 });
-if(window.innerWidth <= 991){
-    
+
+/* let x = window.matchMedia("(min-width:992px)");
+// let x1 = window.matchMedia("(min-width:)");
+console.log(x);
+widthCheck(x); // invoking runtime
+x.addListener(widthCheck); //set function on state change */
+function widthCheck(x) {
+    if (x.matches) {
+        btn.addEventListener('click', () => {
+            document.querySelector('.searchpack').style.display = 'block';
+            lis.forEach((element) => {
+                element.style.display = 'block';
+            })
+        });
+        Array.from(lis).forEach((e) => {
+            e.addEventListener('click', () => {
+                lis.forEach((e) => {
+                    e.style.display = 'block';
+                    document.querySelector('.searchpack').style.display = 'block';
+                })
+            })
+        })
+    }
+    else{
+        btn.addEventListener('click', () => {
+            document.querySelector('.searchpack').style.display = 'none';
+            lis.forEach((element) => {
+                element.style.display = 'none';
+            })
+        });
+        Array.from(lis).forEach((e) => {
+            e.addEventListener('click', () => {
+                lis.forEach((e) => {
+                    e.style.display = 'none';
+                    document.querySelector('.searchpack').style.display = 'none';
+                })
+            })
+        })
+    }
 }
+
+// ==================== for taking in work ==================== //
+
 
 

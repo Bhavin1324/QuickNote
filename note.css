@@ -93,13 +93,14 @@ html{
     border-radius: 10px;
 }
 .line {
-    width: 100%;
+    width: 90%;
     margin: 0px auto;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 1);
     position: relative;
     top: 8px;
     opacity: 0;
     transition: all 0.4s ease;
-    background-color: var(--warning);
 }
 
 .list li:hover .line {
