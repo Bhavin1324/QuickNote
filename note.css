@@ -227,10 +227,9 @@ html{
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-
 /* Media queries */
 /* large device */
-@media(min-width:992px){
+@media (min-width:992px){
     .col-lg-1{
         width: 8.33%;
         /* float: left; */
@@ -278,12 +277,6 @@ html{
     .col-lg-12{
         width: 100%;
         /* float: left; */
-    }
-    .searchpack{
-        display: block;
-    }
-    .list{
-        display: flex;
     }
 }
 
