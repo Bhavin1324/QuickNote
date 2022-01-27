@@ -46,6 +46,7 @@
 }
 .inpbox-dark{
     background-color: var(--dark-hov);
+    color: var(--light);
 }
 .inpbox-dark:focus{
     background-color: var(--dark-hov);

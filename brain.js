@@ -82,8 +82,6 @@ function widthCheck(x) {
     }
 }
 
-
-// ==================== Applying Functionality ==================== //
 // Themes 
 function setDarkMode() {
     let dark = document.querySelector('.dropdown-content a');
@@ -142,13 +140,13 @@ function setDefaultTheme() {
 function setTheme() {
     let light = document.querySelector('.dropdown-content a').nextElementSibling;
     let dark = document.querySelector('.dropdown-content a');
-    if(localStorage.getItem('Theme') == light.innerHTML){
+    if (localStorage.getItem('Theme') == light.innerHTML) {
         setLightMode();
     }
-    else if(localStorage.getItem('Theme') == dark.innerHTML){
+    else if (localStorage.getItem('Theme') == dark.innerHTML) {
         setDarkMode();
     }
-    else{
+    else {
         setDefaultTheme();
     }
 }
@@ -164,6 +162,55 @@ dark.addEventListener('click', setDarkMode);
 let sysdef = document.querySelector('.dropdown-content a').nextElementSibling.nextElementSibling;
 sysdef.addEventListener('click', setDefaultTheme);
 
-
-
+// ==== Add note ====//
+let addNote = document.getElementById('noteadd');
+let noteCardsContainer = document.querySelector('.cards');
+let ttl = document.getElementById('ntitle');
+let note = document.querySelector('.areablock');
+let noteObj = [], titleObj = [];
+addNote.addEventListener('click', function () {
+    if(!ttl.value.trim()){}
+    else{
+        let noteData = localStorage.getItem('notes');
+        let titles = localStorage.getItem('titles');
+        if (noteData == null && titles == null) {
+            noteObj = [];
+            titleObj = [];
+        }
+        else {
+            noteObj = JSON.parse(noteData);
+            titleObj = JSON.parse(titles);
+        }
+        showNote();
+        noteObj.push(note.value);
+        titleObj.push(ttl.value);
+        localStorage.setItem('notes', JSON.stringify(noteObj));
+        localStorage.setItem('titles', JSON.stringify(titleObj));
+        ttl.value = "";
+        note.value = "";
+    }
+});
+function showNote() {
+    let noteData = localStorage.getItem('notes');
+    let titles = localStorage.getItem('titles');
+    if (noteData == null && titles == null) {
+        noteObj = [];
+        titleObj = [];    
+    }
+    else {
+        noteObj = JSON.parse(noteData);
+        titleObj = JSON.parse(titles);
+    }
+    let html = "";
+    Array.from(noteObj).forEach((element,index)=>{
+        html += ` <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="heading heading-light">${titleObj[index]}</div>
+            <p>${element}</p>
+            <div class="setendwm"><button class="btn btn-dark">Edit</button><button id=${index} onclick=delNote(this.id) class="btn btn-dark">Remove</button></div>
+        </div>
+    </div>`;
+    });
+    
+}
 
