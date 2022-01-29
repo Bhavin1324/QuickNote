@@ -167,42 +167,46 @@ let addNote = document.getElementById('noteadd');
 let noteCardsContainer = document.querySelector('.cards');
 let ttl = document.getElementById('ntitle');
 let note = document.querySelector('.areablock');
-let noteObj = [], titleObj = [];
-addNote.addEventListener('click', function () {
-    if(!ttl.value.trim()){}
+let noteObj, titleObj;
+showNotes();
+addNote.addEventListener('click', () => {
+    if(!note.value.trim()){
+        alert("Cannot add empty note!");
+    }
     else{
-        let noteData = localStorage.getItem('notes');
-        let titles = localStorage.getItem('titles');
-        if (noteData == null && titles == null) {
+        note.style.border = '1px solid var(strong-warning)';
+        let titles = localStorage.getItem("titles");
+        let notes = localStorage.getItem("notes");
+        if (titles == null && notes == null) {
             noteObj = [];
             titleObj = [];
         }
         else {
-            noteObj = JSON.parse(noteData);
+            noteObj = JSON.parse(notes);
             titleObj = JSON.parse(titles);
         }
-        showNote();
-        noteObj.push(note.value);
         titleObj.push(ttl.value);
-        localStorage.setItem('notes', JSON.stringify(noteObj));
+        noteObj.push(note.value);
         localStorage.setItem('titles', JSON.stringify(titleObj));
-        ttl.value = "";
-        note.value = "";
+        localStorage.setItem('notes', JSON.stringify(noteObj));
+        note.value = ttl.value = "";
+        showNotes();
     }
 });
-function showNote() {
-    let noteData = localStorage.getItem('notes');
-    let titles = localStorage.getItem('titles');
-    if (noteData == null && titles == null) {
+function showNotes() {
+    let titles = localStorage.getItem("titles");
+    let notes = localStorage.getItem("notes");
+    if (titles == null && notes == null) {
         noteObj = [];
-        titleObj = [];    
+        titleObj = [];
     }
     else {
-        noteObj = JSON.parse(noteData);
+        noteObj = JSON.parse(notes);
         titleObj = JSON.parse(titles);
     }
     let html = "";
-    Array.from(noteObj).forEach((element,index)=>{
+    Array.from(noteObj).forEach((element, index) => {
+        console.log("sdsdssdf");
         html += ` <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="card">
             <div class="heading heading-light">${titleObj[index]}</div>
@@ -211,6 +215,10 @@ function showNote() {
         </div>
     </div>`;
     });
-    
+    if(noteObj.length != 0){
+        noteCardsContainer.innerHTML = html;
+    }
+    else{
+        noteCardsContainer.innerHTML += '<div class="heading-set"></div>';
+    }
 }
-
