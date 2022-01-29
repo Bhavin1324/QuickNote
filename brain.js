@@ -219,6 +219,6 @@ function showNotes() {
         noteCardsContainer.innerHTML = html;
     }
     else{
-        noteCardsContainer.innerHTML += '<div class="heading-set"></div>';
+        noteCardsContainer.innerHTML += `<div class="heading-set">Look like you haven't added any note yet</div>`;
     }
 }
