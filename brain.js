@@ -167,13 +167,14 @@ let addNote = document.getElementById('noteadd');
 let noteCardsContainer = document.querySelector('.cards');
 let ttl = document.getElementById('ntitle');
 let note = document.querySelector('.areablock');
+let serachText = document.querySelector('.findnote');
 let noteObj, titleObj;
 showNotes();
 addNote.addEventListener('click', () => {
-    if(!note.value.trim()){
+    if (!note.value.trim() && !ttl.value.trim()) {
         alert("Cannot add empty note!");
     }
-    else{
+    else {
         note.style.border = '1px solid var(strong-warning)';
         let titles = localStorage.getItem("titles");
         let notes = localStorage.getItem("notes");
@@ -193,6 +194,7 @@ addNote.addEventListener('click', () => {
         showNotes();
     }
 });
+//Function for displaying notes
 function showNotes() {
     let titles = localStorage.getItem("titles");
     let notes = localStorage.getItem("notes");
@@ -207,18 +209,54 @@ function showNotes() {
     let html = "";
     Array.from(noteObj).forEach((element, index) => {
         console.log("sdsdssdf");
-        html += ` <div class="col-lg-4 col-md-6 col-sm-12">
+        html += ` <div class="col-lg-4 col-md-6 col-sm-12 signature">
         <div class="card">
             <div class="heading heading-light">${titleObj[index]}</div>
-            <p>${element}</p>
+            <p class="act-note">${element}</p>
             <div class="setendwm"><button class="btn btn-dark">Edit</button><button id=${index} onclick=delNote(this.id) class="btn btn-dark">Remove</button></div>
         </div>
     </div>`;
     });
-    if(noteObj.length != 0){
+    if (noteObj.length != 0) {
         noteCardsContainer.innerHTML = html;
     }
-    else{
-        noteCardsContainer.innerHTML += `<div class="heading-set">Look like you haven't added any note yet</div>`;
+    else {
+        noteCardsContainer.innerHTML = `<div class="heading-set">Look like you haven't added any note yet</div>`;
     }
 }
+
+// function for deleting notes
+function delNote(index) {
+    debugger;
+    let titles = localStorage.getItem("titles");
+    let notes = localStorage.getItem("notes");
+    if (titles == null && notes == null) {
+        noteObj = [];
+        titleObj = [];
+    }
+    else {
+        noteObj = JSON.parse(notes);
+        titleObj = JSON.parse(titles);
+    }
+    noteObj.splice(index,1);
+    titleObj.splice(index,1);
+    localStorage.setItem('titles', JSON.stringify(titleObj));
+    localStorage.setItem('notes', JSON.stringify(noteObj));
+    showNotes();
+}
+
+// function for searching text
+serachText.addEventListener('input',()=>{
+    let cardList = document.getElementsByClassName('signature');
+    let stext = serachText.value.toLowerCase();
+    Array.from(cardList).forEach((element)=>{
+        let cardHeadng = element.querySelector('.heading').innerText;
+        let cardText = element.querySelector('.act-note').innerText;
+        if(cardText.includes(stext) || cardHeadng.includes(stext)){
+            element.style.display = 'block';
+        }
+        else{
+            element.style.display = 'none';
+        }
+    });
+});
