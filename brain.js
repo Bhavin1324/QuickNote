@@ -208,12 +208,11 @@ function showNotes() {
     }
     let html = "";
     Array.from(noteObj).forEach((element, index) => {
-        console.log("sdsdssdf");
         html += ` <div class="col-lg-4 col-md-6 col-sm-12 signature">
         <div class="card">
             <div class="heading heading-light">${titleObj[index]}</div>
             <p class="act-note">${element}</p>
-            <div class="setendwm"><button class="btn btn-dark">Edit</button><button id=${index} onclick=delNote(this.id) class="btn btn-dark">Remove</button></div>
+            <div class="setendwm"><button class="btn btn-dark" id="${Math.floor(100000 + Math.random() * 900000)}" onclick="updateNote(this.id)">Edit</button><button id=${index} onclick=delNote(this.id) class="btn btn-dark">Remove</button></div>
         </div>
     </div>`;
     });
@@ -227,7 +226,6 @@ function showNotes() {
 
 // function for deleting notes
 function delNote(index) {
-    debugger;
     let titles = localStorage.getItem("titles");
     let notes = localStorage.getItem("notes");
     if (titles == null && notes == null) {
@@ -243,6 +241,12 @@ function delNote(index) {
     localStorage.setItem('titles', JSON.stringify(titleObj));
     localStorage.setItem('notes', JSON.stringify(noteObj));
     showNotes();
+}
+// Function for editing notes
+function updateNote(id){
+    const editBtn = document.getElementById(id);
+    note.value = editBtn.parentElement.previousElementSibling.innerHTML;
+    ttl.value = editBtn.parentElement.previousElementSibling.previousElementSibling.innerHTML;
 }
 
 // function for searching text
@@ -260,3 +264,4 @@ serachText.addEventListener('input',()=>{
         }
     });
 });
+
